@@ -1,0 +1,45 @@
+name: Deploy Flask App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+
+    - name: Export secrets as environment variables
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        PASSWORD_MAIL: ${{ secrets.PASSWORD_MAIL }}
+        BDD: ${{ secrets.BDD }}
+        API_KEY_VIRUSTOTAL: ${{ secrets.API_KEY_VIRUSTOTAL }}
+      run: |
+        echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+        echo "PASSWORD_MAIL=${{ secrets.PASSWORD_MAIL }}" >> .env
+        echo "BDD=${{ secrets.BDD }}" >> .env
+        echo "API_KEY_VIRUSTOTAL=${{ secrets.API_KEY_VIRUSTOTAL }}" >> .env
+
+    - name: Run Flask app
+      env:
+        FLASK_APP: app.py
+        FLASK_ENV: production
+      run: |
+        source .env
+        flask run --host=0.0.0.0
