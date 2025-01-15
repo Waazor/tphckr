@@ -4,6 +4,7 @@
 
 - Python 3.12
 - MySQL
+- git
 
 ## Installation
 
@@ -41,10 +42,45 @@ Créer une base de données **tp_api** :
 
 ```bash
 CREATE DATABASE tp_api;
+USE tp_api;
 ```
 
 Importer les tables via le sql suivant : 
 
 ```bash
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    created_at DATETIME NOT NULL
+);
 
+CREATE TABLE logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    endpoint VARCHAR(255) NOT NULL,
+    method VARCHAR(10) NOT NULL,
+    timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status_code INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+INSERT INTO users (username, password, role, created_at)
+VALUES ('admin', '$2b$12$Iol.UFx9Gu9NkSu1kdKWB.V2VWA9DO9rdrFiPu2F7k7ecZJENR9Xa', 'admin', NOW());
 ```
+
+Quitter mysql :
+
+```bash
+EXIT;
+```
+
+6. Lancez l'API
+
+```bash
+flask run
+```
+
+## Utilisation 
+
