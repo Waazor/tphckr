@@ -113,12 +113,12 @@ ou dans le bouton en haut à droite du Flasgger sous le même format ```Bearer <
 
 ---
 
-### Gestion des utilisateurs (Admin uniquement)
+### Admin tools
 
 #### **Créer un utilisateur**
 **URL**: `/create-user`  
 **Méthode**: `POST`  
-**Description**: Crée un nouvel utilisateur.  
+**Description**: Crée un nouvel utilisateur. (le rôle est soit : *good_guy* *bad_guy* *admin*
 **Requiert un rôle admin.**  
 **Exemple de requête**:
 ```json
@@ -161,11 +161,6 @@ ou dans le bouton en haut à droite du Flasgger sous le même format ```Bearer <
   }
 ]
 ```
-
----
-
-### Journaux (Logs) - Admin uniquement
-
 #### **Lister tous les logs**
 **URL**: `/logs`  
 **Méthode**: `GET`  
@@ -191,7 +186,7 @@ ou dans le bouton en haut à droite du Flasgger sous le même format ```Bearer <
 
 ---
 
-### Générations diverses
+### Create someone
 
 #### **Générer un mot de passe sécurisé**
 **URL**: `/create-password/<taille>`  
@@ -226,7 +221,7 @@ ou dans le bouton en haut à droite du Flasgger sous le même format ```Bearer <
 
 ---
 
-### Vérifications et recherches
+### Search on web
 
 #### **Vérifier un mot de passe**
 **URL**: `/verif-password/<password>`  
@@ -256,7 +251,7 @@ ou dans le bouton en haut à droite du Flasgger sous le même format ```Bearer <
 
 ---
 
-### Actions non recommandées
+### Not cool things
 
 #### **Spammer un email**
 **URL**: `/spam-mail/<mail>`  
